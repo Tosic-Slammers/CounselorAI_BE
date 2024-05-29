@@ -1,0 +1,12 @@
+flask
+flask-cors
+requests
+pymongo
+langchain
+openai
+langchain-openai
+langchain-mongodb
+python-dotenv
+tiktoken
+SpeechRecognition
+
