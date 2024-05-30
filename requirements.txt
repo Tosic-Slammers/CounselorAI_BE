@@ -6,7 +6,8 @@ langchain
 openai
 langchain-openai
 langchain-mongodb
+langchain-community
 python-dotenv
 tiktoken
 SpeechRecognition
-
+elevenlabs
