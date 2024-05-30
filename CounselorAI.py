@@ -67,7 +67,8 @@ print("model loaded\n")
 @app.route('/counselorai', methods=['POST'])
 def counselorai():
     text = request.json.get('text', '')
-    llm_output = process(MONGODB_COLLECTION, vectorstore, text,llm)
+    u_id = request.json.get('u_id', '')
+    llm_output = process(MONGODB_COLLECTION, vectorstore, text,llm,u_id)
     response = jsonify({"text": str(llm_output)})
     return response
 
@@ -141,7 +142,8 @@ def generate_id():
 
 @app.route('/clear_store', methods=['POST'])
 def clear_store_endpoint():
-    clear_store()
+    u_id = request.json.get('u_id', '')
+    clear_store(u_id)
     return jsonify({"status": "success", "message": "Chat history cleared"}), 200
 
 if __name__ == '__main__':

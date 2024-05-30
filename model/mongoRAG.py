@@ -132,7 +132,7 @@ def get_session_history(session_id: str) -> BaseChatMessageHistory:
         store[session_id] = ChatMessageHistory()
     return store[session_id]
 
-def get_response(MONGODB_COLLECTION, u_input, llm):
+def get_response(MONGODB_COLLECTION, u_input, llm ,u_id):
     history_aware_ret = history_aware_retriever(MONGODB_COLLECTION, u_input, llm)
     qa_chain = q_a_chain(llm)
     rag_chain = create_retrieval_chain(history_aware_ret, qa_chain)
@@ -147,19 +147,19 @@ def get_response(MONGODB_COLLECTION, u_input, llm):
     return conversational_rag_chain.invoke(
         {"input": u_input},
         config={
-        "configurable": {"session_id": "abc123"}
+        "configurable": {"session_id": u_id}
     },
     )["answer"]
 #clear messsages storage on exit
-def clear_store():
-    return store.clear()
+def clear_store(u_id):
+    return store.pop(u_id , None) 
 
-def process(MONGODB_COLLECTION, vectorstore, text, llm):
+def process(MONGODB_COLLECTION, vectorstore, text, llm,u_id):
     print("processing")
     sourced_info = source_info(vectorstore, text)
     print("info from vectorstore obtained")
     full_prompt = generate_full_prompt(sourced_info, text)
     print("prompt generated")
-    response = get_response(MONGODB_COLLECTION, text, llm)
+    response = get_response(MONGODB_COLLECTION, text, llm,u_id)
     print("response obtained")
     return response
