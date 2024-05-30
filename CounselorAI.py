@@ -4,6 +4,7 @@ import speech_recognition as sr
 import requests
 from dotenv import load_dotenv
 import os
+import uuid
 from model.mongoRAG import *
 from pymongo import MongoClient
 from langchain_openai import ChatOpenAI
@@ -129,6 +130,14 @@ def text_to_speech_stream():
 
     # Return the stream for further use
     return send_file(audio_stream, mimetype='audio/mpeg', as_attachment=False, download_name="audio.mp3")
+
+@app.route('/generate_id', methods=['POST'])
+def generate_id():
+    u_id = str(uuid.uuid4())
+    #users_coll = mongodb client
+    #users_coll.insert_one({'_id': u_id})
+    response = {'token' : u_id}
+    return jsonify(response)
 
 @app.route('/clear_store', methods=['POST'])
 def clear_store_endpoint():
