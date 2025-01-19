@@ -1,5 +1,6 @@
 # CounselorAI_BE
 Backend for counselorAI project - Created by Rich Palestri , Mohammed Uddin, Jubyaid Uddin, Sung Yi 
+
 Link to frontend: [here](https://github.com/Tosic-Slammers/CounselorAI)
 
 ### Finetuned RAG AI Therapist Model Demonstration
